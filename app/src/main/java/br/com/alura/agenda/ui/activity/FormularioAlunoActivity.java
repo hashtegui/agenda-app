@@ -2,6 +2,7 @@ package br.com.alura.agenda.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.com.alura.agenda.R;
+import br.com.alura.agenda.dao.AlunoDAO;
 import br.com.alura.agenda.model.Aluno;
 
 public class FormularioAlunoActivity extends AppCompatActivity {
@@ -17,6 +19,8 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_aluno);
+
+        AlunoDAO alunoDAO = new AlunoDAO();
 
         Button botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
         final EditText campoNome = findViewById(R.id.activity_formulario_aluno_nome);
@@ -30,10 +34,9 @@ public class FormularioAlunoActivity extends AppCompatActivity {
                 String telefone = campoTelefone.getText().toString();
                 String email = campoEmail.getText().toString();
                 Aluno aluno = new Aluno(nome, telefone, email);
-                Toast.makeText(FormularioAlunoActivity.this,
-                        aluno.getNome()+ " - "+
-                        aluno.getTelefone()+ " - "+
-                        aluno.getEmail(), Toast.LENGTH_LONG).show();
+                alunoDAO.salva(aluno);
+
+                startActivity(new Intent(FormularioAlunoActivity.this, ListaAlunosActivity.class));
             }
         });
     }
