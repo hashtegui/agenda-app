@@ -29,7 +29,11 @@ public class FormularioAlunoActivity extends AppCompatActivity {
                 String nome = campoNome.getText().toString();
                 String telefone = campoTelefone.getText().toString();
                 String email = campoEmail.getText().toString();
-                new Aluno(nome, telefone, email);
+                Aluno aluno = new Aluno(nome, telefone, email);
+                Toast.makeText(FormularioAlunoActivity.this,
+                        aluno.getNome()+ " - "+
+                        aluno.getTelefone()+ " - "+
+                        aluno.getEmail(), Toast.LENGTH_LONG).show();
             }
         });
     }
