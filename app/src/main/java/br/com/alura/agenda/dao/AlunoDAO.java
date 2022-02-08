@@ -13,7 +13,5 @@ public class AlunoDAO {
         alunos.add(aluno);
     }
 
-    public List<Aluno> todos() {
-        return new ArrayList<>(alunos);
-    }
+    public List<Aluno> todos() {return new ArrayList<>(alunos); }
 }
