@@ -18,7 +18,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private EditText campoNome;
     private EditText campoEmail;
     private EditText campoTelefone;
-    AlunoDAO alunoDAO = new AlunoDAO();
+    private final AlunoDAO alunoDAO = new AlunoDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
