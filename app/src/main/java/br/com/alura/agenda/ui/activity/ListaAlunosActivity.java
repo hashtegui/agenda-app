@@ -2,14 +2,19 @@ package br.com.alura.agenda.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 import br.com.alura.agenda.R;
 import br.com.alura.agenda.dao.AlunoDAO;
@@ -25,6 +30,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_alunos);
         setTitle(TITLE_APPBAR);
         configuraFabNovoAluno();
+        alunoDAO.salva(new Aluno("Alex","15489", "mail@mail.com"));
+        alunoDAO.salva(new Aluno("Gui","15489", "mail@mail.com"));
+        alunoDAO.salva(new Aluno("Jeh","15489", "mail@mail.com"));
     }
 
     private void configuraFabNovoAluno() {
@@ -50,10 +58,25 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private void configuraLista() {
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_list_view);
 
+        final List<Aluno> alunos = alunoDAO.todos();
+
         listaDeAlunos.setAdapter(new ArrayAdapter<Aluno>(
                 this,
                 android.R.layout.simple_list_item_1,
-                alunoDAO.todos()) {
+                alunos) {
+        });
+        listaDeAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override //o terceiro e quarto argumentos renomeados
+            public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long id) {
+                //classe log permite ver no LOGcat a acao desejada
+
+                Aluno aluno = alunos.get(posicao);
+                Log.i("Aluno", "" + aluno);
+                Intent vaiParaFormulario = new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class);//mandar para formulario
+                vaiParaFormulario.putExtra("aluno", aluno); // transformar objeto em serializable
+                startActivity(vaiParaFormulario);
+
+            }
         });
     }
 }
