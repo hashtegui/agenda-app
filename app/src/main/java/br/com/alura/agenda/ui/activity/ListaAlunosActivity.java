@@ -22,6 +22,7 @@ import br.com.alura.agenda.model.Aluno;
 public class ListaAlunosActivity extends AppCompatActivity implements ContantesActivities{
     private final AlunoDAO alunoDAO = new AlunoDAO();
     public static final String TITLE_APPBAR = "Lista de Alunos";
+    private ArrayAdapter<Aluno> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements ContantesA
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int posicao, long l) {
                 Aluno aluno = (Aluno) adapterView.getItemAtPosition(posicao);
                 alunoDAO.remove(aluno);
+                adapter.remove(aluno);
                 return true;
             }
         });
@@ -87,10 +89,11 @@ public class ListaAlunosActivity extends AppCompatActivity implements ContantesA
     }
 
     private void configuraAdapter(ListView listaDeAlunos, List<Aluno> alunos) {
-        listaDeAlunos.setAdapter(new ArrayAdapter<Aluno>(
+        adapter = new ArrayAdapter<Aluno>(
                 this,
                 android.R.layout.simple_list_item_1,
                 alunos) {
-        });
+        };
+        listaDeAlunos.setAdapter(adapter);
     }
 }
