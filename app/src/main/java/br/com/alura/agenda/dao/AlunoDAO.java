@@ -8,7 +8,7 @@ import br.com.alura.agenda.model.Aluno;
 public class AlunoDAO {
 
     private final static List<Aluno> alunos = new ArrayList<>();
-    private static int contadorDeIds = 0;
+    private static int contadorDeIds =1;
 
     public void salva(Aluno aluno) {
         aluno.setId(contadorDeIds);
@@ -21,14 +21,14 @@ public class AlunoDAO {
     }
 
     public void edita(Aluno aluno) {
-        Aluno econtrado = null;
+        Aluno alunoEncontrado = null;
         for (Aluno a : alunos) {
             if (a.getId() == aluno.getId()) {
-                econtrado = a;
+                alunoEncontrado = a;
             }
         }
-        if (econtrado != null) {
-            int posicao = alunos.indexOf(econtrado);
+        if (alunoEncontrado != null) {
+            int posicao = alunos.indexOf(alunoEncontrado);
             alunos.set(posicao, aluno);
         }
     }
