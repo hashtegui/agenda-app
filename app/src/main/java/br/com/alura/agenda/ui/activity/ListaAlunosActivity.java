@@ -56,6 +56,14 @@ public class ListaAlunosActivity extends AppCompatActivity implements ContantesA
         final List<Aluno> alunos = alunoDAO.todos();
         configuraAdapter(listaDeAlunos, alunos);
         configuraListenerDeCliquePorItem(listaDeAlunos);
+        listaDeAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int posicao, long l) {
+                Aluno aluno = (Aluno) adapterView.getItemAtPosition(posicao);
+                alunoDAO.remove(aluno);
+                return true;
+            }
+        });
     }
 
     private void configuraListenerDeCliquePorItem(ListView listaDeAlunos) {
