@@ -45,6 +45,10 @@ public class ListaAlunosActivity extends AppCompatActivity implements ContantesA
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); // usando menuInfo especifico do adapter, somente fazendo cast, e so pode usar se for uma adapter view
+        //utilizando o getItem do adapter, pra ter acesso as posicoes
+        Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
+        remove(alunoEscolhido);
         return super.onContextItemSelected(item);
 
     }
