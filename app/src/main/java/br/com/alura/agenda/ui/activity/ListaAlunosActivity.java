@@ -40,15 +40,21 @@ public class ListaAlunosActivity extends AppCompatActivity implements ContantesA
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add("Remover");
+        getMenuInflater()
+                .inflate(R.menu.activity_lista_alunos_menu, menu);
     }
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); // usando menuInfo especifico do adapter, somente fazendo cast, e so pode usar se for uma adapter view
-        //utilizando o getItem do adapter, pra ter acesso as posicoes
-        Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
-        remove(alunoEscolhido);
+        //CharSequence tituloMenu = item.getTitle(); buscando por titulo
+        int itemId = item.getItemId(); // buscando por id
+        if(itemId == R.id.activity_lista_alunos_menu_remover) {
+            AdapterView.AdapterContextMenuInfo menuInfo =
+                    (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); // usando menuInfo especifico do adapter, somente fazendo cast, e so pode usar se for uma adapter view
+            //utilizando o getItem do adapter, pra ter acesso as posicoes
+            Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
+            remove(alunoEscolhido);
+        }
         return super.onContextItemSelected(item);
 
     }
